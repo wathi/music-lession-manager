@@ -1,3 +1,8 @@
 export default function Page() {
-  return <h1>Hello, Next.js!</h1>;
+  return (
+    <div>
+      <div className="nav">Nav Bar</div>
+      <div className="content">Content</div>
+    </div>
+  );
 }
