@@ -7,9 +7,9 @@ export default function DashboardLayout({
   return (
     <>
       <nav className="fixed top-0 left-0 right-0 h-12 border-b border-b-gray-300 text-gray-800 text-sm flex items-center justify-between p-4">
-        <div className="text-xl">NEIRO</div>
+        <div className="text-xl cursor-pointer">NEIRO</div>
         <div className="flex items-center">
-          <div className="p-2 py-1 hover:bg-gray-300">
+          <div className="p-2 py-1 hover:bg-gray-300 cursor-pointer">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
@@ -25,7 +25,7 @@ export default function DashboardLayout({
               />
             </svg>
           </div>
-          <div className="px-2 py-1 hover:bg-gray-300">
+          <div className="px-2 py-1 hover:bg-gray-300 cursor-pointer">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
@@ -41,7 +41,7 @@ export default function DashboardLayout({
               />
             </svg>
           </div>
-          <div className="px-2 py-1 hover:bg-gray-300">
+          <div className="px-2 py-1 hover:bg-gray-300 cursor-pointer">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
@@ -60,33 +60,45 @@ export default function DashboardLayout({
         </div>
       </nav>
       <aside className="fixed top-12 left-0 h-[calc(100%-3rem)] w-56 overflow-y-auto text-gray-800 text-sm mt-4">
-        <Link href="/dashboard" className="block hover:bg-gray-300 p-4">
+        <Link
+          href="/dashboard"
+          className="block hover:bg-gray-300 p-4 cursor-pointer"
+        >
           Dashboard
         </Link>
         <Link
           href="/dashboard/students"
-          className="block hover:bg-gray-300 p-4"
+          className="block hover:bg-gray-300 p-4 cursor-pointer"
         >
           students
         </Link>
-        <Link href="/dashboard/lessons" className="block hover:bg-gray-300 p-4">
+        <Link
+          href="/dashboard/lessons"
+          className="block hover:bg-gray-300 p-4 cursor-pointer"
+        >
           Lessons
         </Link>
         <Link
           href="/dashboard/messages"
-          className="block hover:bg-gray-300 p-4"
+          className="block hover:bg-gray-300 p-4 cursor-pointer"
         >
           Messages
         </Link>
-        <Link href="/dashboard/reports" className="block hover:bg-gray-300 p-4">
+        <Link
+          href="/dashboard/reports"
+          className="block hover:bg-gray-300 p-4 cursor-pointer"
+        >
           Reports
         </Link>
-        <Link href="/dashboard/website" className="block hover:bg-gray-300 p-4">
+        <Link
+          href="/dashboard/website"
+          className="block hover:bg-gray-300 p-4 cursor-pointer"
+        >
           Website
         </Link>
         <Link
           href="/dashboard/settings"
-          className="block hover:bg-gray-300 p-4"
+          className="block hover:bg-gray-300 p-4 cursor-pointer"
         >
           Settings
         </Link>
