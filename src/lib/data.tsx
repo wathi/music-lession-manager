@@ -1,8 +1,6 @@
-import { createClient } from 'utils/supabase/server';
-
-export default async function Data() {
-  const supabase = await createClient();
-  const { data } = await supabase.from('users').select();
-  console.log(data);
-  return <pre>{JSON.stringify(data)}</pre>;
+export function dummydata() {
+  const data = [
+    { id: 1, name: 'a' },
+    { id: 2, name: 'b' },
+  ];
 }
