@@ -1,3 +1,9 @@
+import Data from 'lib/data';
+
 export default function DashboardPage() {
-  return <div></div>;
+  return (
+    <div>
+      <Data />
+    </div>
+  );
 }
