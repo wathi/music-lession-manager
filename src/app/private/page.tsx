@@ -5,10 +5,28 @@ import { createClient } from 'utils/supabase/server';
 export default async function PrivatePage() {
   const supabase = await createClient();
 
-  const { data, error } = await supabase.auth.getUser();
-  if (error || !data?.user) {
+  const {
+    data: { user },
+    error,
+  } = await supabase.auth.getUser();
+  if (error || !user) {
     redirect('/login');
   }
 
-  return <p>Hello {data.user.email}</p>;
+  console.log(user);
+
+  const { data: profile, error: profileError } = await supabase
+    .from('profiles')
+    .select('*')
+    .eq('id', user.id)
+    .single(); // since each user has one profile
+
+  console.log(profile);
+
+  return (
+    <>
+      <p>Hello {user.email}</p>
+      <p>{profile.first_name}</p>
+    </>
+  );
 }
