@@ -10,17 +10,23 @@ export async function register(formData: FormData) {
 
   // type-casting here for convenience
   // in practice, you should validate your inputs
-  const data = {
-    email: formData.get('email') as string,
-    password: formData.get('password') as string,
-  };
 
-  const { error } = await supabase.auth.signUp(data);
+  const { data, error } = await supabase.auth.signUp({
+    email: (formData.get('email') as string).trim(),
+    password: formData.get('password') as string,
+    options: {
+      data: {
+        first_name: (formData.get('first_name') as string).trim(),
+        last_name: (formData.get('last_name') as string).trim(),
+      },
+    },
+  });
 
   if (error) {
-    redirect('/error');
+    throw new Error(error.message);
+    // redirect('/error');
   }
 
   revalidatePath('/', 'layout');
-  redirect('/');
+  redirect('/dashboard');
 }

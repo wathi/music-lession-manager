@@ -8,6 +8,27 @@ export default function RegisterPage() {
         <div className="flex flex-col items-center m-20">
           <form className="flex flex-col items-center p-4 bg-gray-100 rounded-md w-150 mb-6">
             <div className="px-20 py-6 mb-6 border-b">Registration</div>
+
+            <div className="flex flex-col mb-4">
+              <label htmlFor="first_name">First Name</label>
+              <input
+                id="first_name"
+                name="first_name"
+                type="text"
+                required
+                className="border border-gray-700 rounded-sm px-2 py-1"
+              />
+            </div>
+            <div className="flex flex-col mb-4">
+              <label htmlFor="last_name">Last name</label>
+              <input
+                id="last_name"
+                name="last_name"
+                type="text"
+                required
+                className="border border-gray-700 rounded-sm px-2 py-1"
+              />
+            </div>
             <div className="flex flex-col mb-4">
               <label htmlFor="email">Email</label>
               <input
