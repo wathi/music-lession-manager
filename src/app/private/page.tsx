@@ -21,7 +21,7 @@ export default async function PrivatePage() {
     .eq('id', user.id)
     .single(); // since each user has one profile
 
-  console.log(profile);
+  if (profileError) throw profileError;
 
   return (
     <>
