@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import { register } from './actions';
 
 export default function RegisterPage() {
@@ -36,9 +37,12 @@ export default function RegisterPage() {
           </form>
           <div className="flex flex-col items-center">
             <div className="text-gray-100 mb-2">Already have an account?</div>
-            <button className="border border-gray-100 text-gray-100 rounded-xl px-10 py-2 hover:border-yellow-600 cursor-pointer">
+            <Link
+              href="/login"
+              className="border border-gray-100 text-gray-100 rounded-xl px-10 py-2 hover:border-yellow-600 cursor-pointer"
+            >
               Login
-            </button>
+            </Link>
           </div>
         </div>
       </div>
