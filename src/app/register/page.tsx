@@ -1,13 +1,13 @@
 import Link from 'next/link';
-import { login } from './actions';
+import { register } from './actions';
 
-export default function LoginPage() {
+export default function RegisterPage() {
   return (
     <>
       <div className="flex flex-col items-center h-screen w-screen bg-gray-700">
         <div className="flex flex-col items-center m-20">
           <form className="flex flex-col items-center p-4 bg-gray-100 rounded-md w-150 mb-6">
-            <div className="px-20 py-6 mb-6 border-b">Login</div>
+            <div className="px-20 py-6 mb-6 border-b">Registration</div>
             <div className="flex flex-col mb-4">
               <label htmlFor="email">Email</label>
               <input
@@ -30,18 +30,18 @@ export default function LoginPage() {
             </div>
             <button
               className="bg-gray-700 rounded-xl text-white px-10 py-2 mb-4 hover:bg-gray-600 cursor-pointer"
-              formAction={login}
+              formAction={register}
             >
-              Log in
+              Register
             </button>
           </form>
           <div className="flex flex-col items-center">
-            <div className="text-gray-100 mb-2">{`Don't have an account?`}</div>
+            <div className="text-gray-100 mb-2">Already have an account?</div>
             <Link
-              href="/register"
+              href="/login"
               className="border border-gray-100 text-gray-100 rounded-xl px-10 py-2 hover:border-yellow-600 cursor-pointer"
             >
-              Register
+              Login
             </Link>
           </div>
         </div>

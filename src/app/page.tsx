@@ -1,3 +1,5 @@
+import Link from 'next/link';
+
 export default function Page() {
   return (
     <>
@@ -15,9 +17,12 @@ export default function Page() {
               <div className="px-4 py-2 mx-1 rounded-xl hover:bg-gray-300 cursor-pointer">
                 Contact
               </div>
-              <div className="px-4 py-2 mx-1 rounded-xl hover:bg-gray-300 cursor-pointer">
+              <Link
+                href="/login"
+                className="px-4 py-2 mx-1 rounded-xl hover:bg-gray-300 cursor-pointer"
+              >
                 Log in
-              </div>
+              </Link>
             </div>
           </nav>
           <main className="flex flex-col items-center p-4 m-20">
@@ -30,9 +35,12 @@ export default function Page() {
             <p className="text-gray-800 text-2xl mb-10">
               schedule, organise, and grow your musical journey.
             </p>
-            <div className="rounded-md px-8 py-3 bg-gray-800 text-white font-medium hover:bg-gray-700 cursor-pointer">
+            <Link
+              href="/register"
+              className="rounded-md px-8 py-3 bg-gray-800 text-white font-medium hover:bg-gray-700 cursor-pointer"
+            >
               Join Now
-            </div>
+            </Link>
           </main>
         </div>
       </div>
