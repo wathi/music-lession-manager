@@ -11,7 +11,7 @@ export async function register(formData: FormData) {
   // type-casting here for convenience
   // in practice, you should validate your inputs
 
-  const { data, error } = await supabase.auth.signUp({
+  const { error } = await supabase.auth.signUp({
     email: (formData.get('email') as string).trim(),
     password: formData.get('password') as string,
     options: {
