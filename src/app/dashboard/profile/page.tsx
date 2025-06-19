@@ -1,5 +1,4 @@
 import { redirect } from 'next/navigation';
-
 import { createClient } from 'utils/supabase/server';
 
 export default async function ProfilePage() {
@@ -9,11 +8,10 @@ export default async function ProfilePage() {
     data: { user },
     error,
   } = await supabase.auth.getUser();
+
   if (error || !user) {
     redirect('/login');
   }
-
-  console.log(user);
 
   const { data: profile, error: profileError } = await supabase
     .from('profiles')
@@ -25,6 +23,7 @@ export default async function ProfilePage() {
 
   return (
     <>
+      <h1>Profile settings</h1>
       <p>Hello {user.email}</p>
       <p>{profile.first_name}</p>
     </>
