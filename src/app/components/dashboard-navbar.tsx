@@ -2,6 +2,8 @@
 import { redirect } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { createClient } from 'utils/supabase/client';
+import type { User } from '@supabase/supabase-js';
+import ProfileModal from './profile-modal';
 
 type Profile = {
   id: string;
@@ -12,7 +14,9 @@ type Profile = {
 
 export default function DashboardNavbar() {
   const supabase = createClient();
+  const [user, setUser] = useState<User | null>(null);
   const [profile, setProfile] = useState<Profile | null>(null);
+  const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
     const fetchProfile = async () => {
@@ -21,6 +25,7 @@ export default function DashboardNavbar() {
       } = await supabase.auth.getUser();
 
       if (user) {
+        setUser(user);
         const { data, error } = await supabase
           .from('profiles')
           .select('*')
@@ -44,6 +49,7 @@ export default function DashboardNavbar() {
       <div className="flex items-center">
         <div className="p-2 py-1 hover:bg-gray-300 cursor-pointer">
           <svg
+            xmlns="http://www.w3.org/2000/svg"
             fill="none"
             viewBox="0 0 24 24"
             strokeWidth={1.5}
@@ -59,6 +65,7 @@ export default function DashboardNavbar() {
         </div>
         <div className="px-2 py-1 hover:bg-gray-300 cursor-pointer">
           <svg
+            xmlns="http://www.w3.org/2000/svg"
             fill="none"
             viewBox="0 0 24 24"
             strokeWidth={1.5}
@@ -72,8 +79,12 @@ export default function DashboardNavbar() {
             />
           </svg>
         </div>
-        <div className="px-2 py-1 hover:bg-gray-300 cursor-pointer">
+        <div
+          className="px-2 py-1 hover:bg-gray-300 cursor-pointer"
+          onClick={() => setShowModal(!showModal)}
+        >
           <svg
+            xmlns="http://www.w3.org/2000/svg"
             fill="none"
             viewBox="0 0 24 24"
             strokeWidth={1.5}
@@ -88,6 +99,13 @@ export default function DashboardNavbar() {
           </svg>
         </div>
       </div>
+      {showModal && (
+        <ProfileModal
+          user={user}
+          profile={profile}
+          closeModal={() => setShowModal(false)}
+        />
+      )}
     </nav>
   );
 }
