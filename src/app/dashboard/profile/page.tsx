@@ -1,5 +1,7 @@
 import { redirect } from 'next/navigation';
 import { createClient } from 'utils/supabase/server';
+import EditProfileForm from 'app/components/edit-profile-form';
+import Link from 'next/link';
 
 export default async function ProfilePage() {
   const supabase = await createClient();
@@ -16,58 +18,36 @@ export default async function ProfilePage() {
   const { data: profile, error: profileError } = await supabase
     .from('profiles')
     .select('*')
-    .eq('id', user.id)
-    .single(); // since each user has one profile
+    .eq('user_id', user.id)
+    .single();
 
   if (profileError) throw profileError;
 
-  type Account = {
-    id: string;
-    name: string;
-    subdomain: string;
-  };
-
-  type AccountUser = {
-    accounts: Account | null;
-  };
-
-  const { data: accounts } = (await supabase
-    .from('account_users')
-    .select('accounts ( id, name, subdomain )')
-    .eq('user_id', user.id)) as { data: AccountUser[] };
-
   return (
     <div className="px-50">
-      <h1 className="mb-6 text-2xl font-bold">Profile settings</h1>
-      <div className="mb-6 border-b">
-        <div className="font-bold">First name</div>
-        <div className="py-2 mb-2">{profile.first_name}</div>
-        <div className="font-bold">Last name</div>
-        <div className="py-2 mb-2">{profile.last_name}</div>
-        <div className="font-bold">Email</div>
-        <div className="py-2 mb-2">{user.email}</div>
-      </div>
+      <Link
+        href="/dashboard"
+        className="flex items-center mb-6 text-gray-500 cursor-pointer"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          strokeWidth={1.5}
+          stroke="currentColor"
+          className="size-4 mr-2"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18"
+          />
+        </svg>
+        Back to dashboard
+      </Link>
+      <h1 className="mb-6 text-2xl font-bold">Profile</h1>
 
-      {accounts?.map(
-        ({ accounts }) =>
-          accounts && (
-            <div
-              key={accounts.id}
-              className="flex items-center justify-between"
-            >
-              <div>
-                <div className="text-xl text-gray-700">{accounts.name}</div>
-                <a
-                  className="text-sm text-gray-500"
-                  href={`${accounts.subdomain}`}
-                >
-                  {accounts.subdomain}
-                </a>
-              </div>
-              <div className="bg-gray-300 px-6 py-2 rounded-md">Setting</div>
-            </div>
-          )
-      )}
+      <EditProfileForm user={user} profile={profile} />
     </div>
   );
 }
