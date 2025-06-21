@@ -15,7 +15,6 @@ type Profile = {
 export default function DashboardNavbar() {
   const supabase = createClient();
   const [user, setUser] = useState<User | null>(null);
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [profile, setProfile] = useState<Profile | null>(null);
   const [showModal, setShowModal] = useState(false);
 
