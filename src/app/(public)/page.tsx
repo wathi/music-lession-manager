@@ -29,14 +29,14 @@ export default async function Page() {
               {user ? (
                 <Link
                   href="/dashboard"
-                  className="px-4 py-1 mx-1 rounded-xl text-white bg-gray-800 hover:bg-gray-600 cursor-pointer"
+                  className="text-white bg-gray-800 px-4 py-1 mx-1 rounded-xl hover:bg-gray-600 cursor-pointer"
                 >
                   Dashboard
                 </Link>
               ) : (
                 <Link
                   href="/login"
-                  className="px-4 py-2 mx-1 rounded-xl hover:text-gray-500 cursor-pointer"
+                  className="bg-gray-300 px-4 py-1 mx-1 rounded-xl hover:text-gray-500 cursor-pointer"
                 >
                   Log in
                 </Link>
