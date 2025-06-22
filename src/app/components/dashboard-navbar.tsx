@@ -1,7 +1,7 @@
 'use client';
 import { redirect } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import { createClient } from 'utils/supabase/client';
+import { createClient } from '@/utils/supabase/client';
 import type { User } from '@supabase/supabase-js';
 import ProfileModal from './profile-modal';
 import Link from 'next/link';

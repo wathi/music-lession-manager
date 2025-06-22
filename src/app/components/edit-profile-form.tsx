@@ -1,6 +1,6 @@
 'use client';
 import { useState } from 'react';
-import { createClient } from 'utils/supabase/client';
+import { createClient } from '@/utils/supabase/client';
 
 export default function EditProfileForm({ user, profile }) {
   const [firstName, setFirstName] = useState(profile.first_name || '');

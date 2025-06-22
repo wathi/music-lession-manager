@@ -1,6 +1,6 @@
 import { redirect } from 'next/navigation';
-import { createClient } from 'utils/supabase/server';
-import EditProfileForm from 'app/components/edit-profile-form';
+import { createClient } from '@/utils/supabase/server';
+import EditProfileForm from '@/app/components/edit-profile-form';
 import Link from 'next/link';
 
 export default async function ProfilePage() {

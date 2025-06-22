@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { register } from './actions';
-import { createClient } from 'utils/supabase/server';
+import { createClient } from '@/utils/supabase/server';
 import { redirect } from 'next/navigation';
 
 export default async function RegisterPage() {
