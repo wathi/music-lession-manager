@@ -1,6 +1,13 @@
 import Link from 'next/link';
+import { createClient } from 'utils/supabase/server';
 
-export default function Page() {
+export default async function Page() {
+  const supabase = await createClient();
+
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
   return (
     <>
       <div>
@@ -8,7 +15,7 @@ export default function Page() {
           <nav className="text-gray-800 text-md flex items-center justify-between">
             <div className="text-xl cursor-pointer">NEIRO</div>
             <div className="flex items-center">
-              <div className="p-4 py-2 mx-1 rounded-xl hover:bg-gray-300 cursor-pointer">
+              <div className="p-4 py-2 mx-1 rounded-xl hover:text-gray-700 cursor-pointer">
                 Feature
               </div>
               <div className="px-4 py-2 mx-1 rounded-xl hover:bg-gray-300 cursor-pointer">
@@ -17,12 +24,21 @@ export default function Page() {
               <div className="px-4 py-2 mx-1 rounded-xl hover:bg-gray-300 cursor-pointer">
                 Contact
               </div>
-              <Link
-                href="/login"
-                className="px-4 py-2 mx-1 rounded-xl hover:bg-gray-300 cursor-pointer"
-              >
-                Log in
-              </Link>
+              {user ? (
+                <Link
+                  href="/dashboard"
+                  className="px-4 py-2 mx-1 rounded-xl bg-gray-300 hover:bg-gray-200 cursor-pointer"
+                >
+                  Dashboard
+                </Link>
+              ) : (
+                <Link
+                  href="/login"
+                  className="px-4 py-2 mx-1 rounded-xl hover:bg-gray-300 cursor-pointer"
+                >
+                  Log in
+                </Link>
+              )}
             </div>
           </nav>
           <main className="flex flex-col items-center p-4 m-20">
