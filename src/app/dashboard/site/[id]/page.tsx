@@ -1,6 +1,6 @@
 import { redirect, notFound } from 'next/navigation';
-import { createClient } from 'utils/supabase/server';
-import { checkAccountAccess } from 'app/utils/checkAccountAccess';
+import { createClient } from '@/utils/supabase/server';
+import { checkAccountAccess } from '@/app/utils/checkAccountAccess';
 
 export default async function SitePage({ params }) {
   const accountId = (await params).id;

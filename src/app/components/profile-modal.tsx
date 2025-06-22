@@ -1,6 +1,6 @@
 import type { User } from '@supabase/supabase-js';
 import { useRouter } from 'next/navigation';
-import { logout } from 'app/utils/logout';
+import { logout } from '@/app/utils/logout';
 
 type Profile = {
   id: string;
