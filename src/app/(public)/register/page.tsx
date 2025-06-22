@@ -1,7 +1,18 @@
 import Link from 'next/link';
 import { register } from './actions';
+import { createClient } from 'utils/supabase/server';
+import { redirect } from 'next/navigation';
 
-export default function RegisterPage() {
+export default async function RegisterPage() {
+  const supabase = await createClient();
+
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  if (user) {
+    redirect('/dashboard');
+  }
   return (
     <>
       <div className="flex flex-col items-center h-screen w-screen bg-gray-700">
