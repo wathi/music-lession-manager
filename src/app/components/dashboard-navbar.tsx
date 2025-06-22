@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { createClient } from 'utils/supabase/client';
 import type { User } from '@supabase/supabase-js';
 import ProfileModal from './profile-modal';
+import Link from 'next/link';
 
 type Profile = {
   id: string;
@@ -46,7 +47,9 @@ export default function DashboardNavbar() {
 
   return (
     <nav className="fixed top-0 left-0 right-0 h-12 border-b border-b-gray-300 text-gray-800 text-sm flex items-center justify-between p-4">
-      <div className="text-xl cursor-pointer">NEIRO</div>
+      <Link href="/" className="text-xl cursor-pointer">
+        NEIRO
+      </Link>
       <div className="flex items-center">
         <div className="p-2 py-1 hover:bg-gray-300 cursor-pointer">
           <svg
