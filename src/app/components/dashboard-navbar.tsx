@@ -46,12 +46,12 @@ export default function DashboardNavbar() {
   }, [supabase]);
 
   return (
-    <nav className="fixed top-0 left-0 right-0 h-12 border-b border-b-gray-300 text-gray-800 text-sm flex items-center justify-between p-4">
-      <Link href="/" className="text-xl cursor-pointer">
+    <nav className="fixed top-0 left-0 right-0 h-12 border-b border-b-gray-300 flex items-center justify-between p-4">
+      <Link href="/" className="text-gray-800 text-xl cursor-pointer">
         NEIRO
       </Link>
       <div className="flex items-center">
-        <div className="p-2 py-1 hover:bg-gray-300 cursor-pointer">
+        <div className="p-2 py-1 text-gray-800 hover:bg-gray-300 cursor-pointer">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -67,7 +67,7 @@ export default function DashboardNavbar() {
             />
           </svg>
         </div>
-        <div className="px-2 py-1 hover:bg-gray-300 cursor-pointer">
+        <div className="px-2 py-1 text-gray-800 hover:bg-gray-300 cursor-pointer">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -84,7 +84,7 @@ export default function DashboardNavbar() {
           </svg>
         </div>
         <div
-          className="px-2 py-1 hover:bg-gray-300 cursor-pointer"
+          className="px-2 py-1 text-gray-800 hover:bg-gray-300 cursor-pointer"
           onClick={() => setShowModal(!showModal)}
         >
           <svg
