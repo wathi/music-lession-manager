@@ -2,7 +2,7 @@ import { redirect, notFound } from 'next/navigation';
 import { createClient } from 'utils/supabase/server';
 import { checkAccountAccess } from 'app/utils/checkAccountAccess';
 
-export default async function Students({ params }: { params: { id: string } }) {
+export default async function Students({ params }) {
   const accountId = (await params).id;
   const checkAccessResult = await checkAccountAccess(accountId);
   if (!checkAccessResult) {
