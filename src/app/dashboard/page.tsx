@@ -1,5 +1,6 @@
 import { redirect } from 'next/navigation';
 import { createClient } from 'utils/supabase/server';
+import Link from 'next/link';
 
 export default async function DashboardPage() {
   const supabase = await createClient();
@@ -31,26 +32,25 @@ export default async function DashboardPage() {
   return (
     <>
       <div>Organisations</div>
-      {accounts?.map(
-        ({ accounts }) =>
-          accounts && (
-            <div
-              key={accounts.id}
-              className="flex items-center justify-between"
-            >
-              <div>
-                <div className="text-xl text-gray-700">{accounts.name}</div>
-                <a
-                  className="text-sm text-gray-500"
-                  href={`${accounts.subdomain}`}
-                >
-                  {accounts.subdomain}
-                </a>
-              </div>
-              <div className="bg-gray-300 px-6 py-2 rounded-md">Setting</div>
-            </div>
-          )
-      )}
+      <div className="flex gap-4 py-6">
+        {accounts?.map(
+          ({ accounts }) =>
+            accounts && (
+              <Link
+                href={`dashboard/site/${accounts.id}`}
+                key={accounts.id}
+                className="flex items-center justify-between border p-6 rounded-md w-96 hover:bg-gray-100 cursor-pointer"
+              >
+                <div>
+                  <div className="text-xl text-gray-700">{accounts.name}</div>
+                  <div className="text-sm text-gray-500">
+                    {accounts.subdomain}
+                  </div>
+                </div>
+              </Link>
+            )
+        )}
+      </div>
     </>
   );
 }
