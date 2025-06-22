@@ -12,29 +12,31 @@ export default async function Page() {
     <>
       <div>
         <div className="mx-80 p-6">
-          <nav className="text-gray-800 text-md flex items-center justify-between">
-            <div className="text-xl cursor-pointer">NEIRO</div>
+          <nav className="text-gray-800 text-lg font-medium flex items-center justify-between">
+            <Link href="/" className="text-xl cursor-pointer">
+              NEIRO
+            </Link>
             <div className="flex items-center">
-              <div className="p-4 py-2 mx-1 rounded-xl hover:text-gray-700 cursor-pointer">
+              <div className="p-4 py-2 mx-1 rounded-xl hover:text-gray-500 cursor-pointer">
                 Feature
               </div>
-              <div className="px-4 py-2 mx-1 rounded-xl hover:bg-gray-300 cursor-pointer">
+              <div className="px-4 py-2 mx-1 rounded-xl hover:text-gray-500 cursor-pointer">
                 Pricing
               </div>
-              <div className="px-4 py-2 mx-1 rounded-xl hover:bg-gray-300 cursor-pointer">
+              <div className="px-4 py-2 mx-1 rounded-xl hover:text-gray-500 cursor-pointer">
                 Contact
               </div>
               {user ? (
                 <Link
                   href="/dashboard"
-                  className="px-4 py-2 mx-1 rounded-xl bg-gray-300 hover:bg-gray-200 cursor-pointer"
+                  className="px-4 py-1 mx-1 rounded-xl text-white bg-gray-700 hover:bg-gray-500 cursor-pointer"
                 >
                   Dashboard
                 </Link>
               ) : (
                 <Link
                   href="/login"
-                  className="px-4 py-2 mx-1 rounded-xl hover:bg-gray-300 cursor-pointer"
+                  className="px-4 py-2 mx-1 rounded-xl hover:text-gray-500 cursor-pointer"
                 >
                   Log in
                 </Link>
