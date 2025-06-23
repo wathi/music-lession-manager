@@ -1,4 +1,4 @@
-import { redirect, notFound } from 'next/navigation';
+import { notFound } from 'next/navigation';
 import { createClient } from '@/utils/supabase/server';
 import { checkAccountAccess } from '@/app/utils/checkAccountAccess';
 
@@ -12,13 +12,12 @@ export default async function Students({ params }) {
   const supabase = await createClient();
 
   const { data: students, error: studentsError } = await supabase
-    .from('students')
-    .select('*')
+    .from('account_students')
+    .select(`student_id`)
     .eq('account_id', accountId);
 
   if (studentsError || !students) {
-    console.log('Data not found', studentsError);
-    redirect('/dashboard');
+    return <div>No students added yet</div>;
   }
 
   console.log('Students data:', students);
@@ -27,7 +26,7 @@ export default async function Students({ params }) {
       <div>
         <div>Students</div>
         {students.map((student) => (
-          <div key={student.id}>{student.first_name}</div>
+          <div key={student.student_id}>{student.student_id}</div>
         ))}
       </div>
     </>
