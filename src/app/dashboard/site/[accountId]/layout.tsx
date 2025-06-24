@@ -7,51 +7,51 @@ export default function SiteLayout({
   params,
 }: {
   children: React.ReactNode;
-  params: Promise<{ id: string }>;
+  params: Promise<{ accountId: string }>;
 }) {
-  const { id } = React.use(params);
+  const { accountId } = React.use(params);
 
   return (
     <>
       <aside className="fixed top-12 left-0 h-[calc(100%-3rem)] w-56 overflow-y-auto text-gray-800 text-sm mt-4">
         <Link
-          href={`/dashboard/site/${id}`}
+          href={`/dashboard/site/${accountId}`}
           className="block hover:bg-gray-300 p-4 cursor-pointer"
         >
           Overview
         </Link>
         <Link
-          href={`/dashboard/site/${id}/students`}
+          href={`/dashboard/site/${accountId}/students`}
           className="block hover:bg-gray-300 p-4 cursor-pointer"
         >
           Students
         </Link>
         <Link
-          href={`/dashboard/site/${id}/lessons`}
+          href={`/dashboard/site/${accountId}/lessons`}
           className="block hover:bg-gray-300 p-4 cursor-pointer"
         >
           Lessons
         </Link>
         <Link
-          href={`/dashboard/site/${id}/messages`}
+          href={`/dashboard/site/${accountId}/messages`}
           className="block hover:bg-gray-300 p-4 cursor-pointer"
         >
           Messages
         </Link>
         <Link
-          href={`/dashboard/site/${id}/reports`}
+          href={`/dashboard/site/${accountId}/reports`}
           className="block hover:bg-gray-300 p-4 cursor-pointer"
         >
           Reports
         </Link>
         <Link
-          href={`/dashboard/site/${id}/website`}
+          href={`/dashboard/site/${accountId}/website`}
           className="block hover:bg-gray-300 p-4 cursor-pointer"
         >
           Website
         </Link>
         <Link
-          href={`/dashboard/site/${id}/settings`}
+          href={`/dashboard/site/${accountId}/settings`}
           className="block hover:bg-gray-300 p-4 cursor-pointer"
         >
           Settings

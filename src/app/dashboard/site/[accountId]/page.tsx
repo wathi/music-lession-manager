@@ -3,7 +3,7 @@ import { createClient } from '@/utils/supabase/server';
 import { checkAccountAccess } from '@/app/utils/checkAccountAccess';
 
 export default async function SitePage({ params }) {
-  const accountId = (await params).id;
+  const accountId = (await params).accountId;
   const checkAccessResult = await checkAccountAccess(accountId);
   if (!checkAccessResult) {
     notFound();
