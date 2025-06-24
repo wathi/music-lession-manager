@@ -21,24 +21,30 @@ export default function LessonForm({
     setMessage('');
 
     const supabase = createClient();
-    const error = null;
+
     if (newLesson) {
-      const { error: insertError } = await supabase
+      const { error } = await supabase
         .from('lessons')
         .insert({ name: name, price: price, account_id: accountId });
+      setLoading(false);
+      setContentChanged(false);
+      if (error) {
+        setMessage('Error add lesson');
+      } else {
+        setMessage('Lesson add!');
+      }
     } else {
-      const { error: updateError } = await supabase
+      const { error } = await supabase
         .from('lessons')
         .update({ name: name, price: price })
         .eq('id', lessonId);
-    }
-
-    setLoading(false);
-    setContentChanged(false);
-    if (error) {
-      setMessage('Error updating lesson');
-    } else {
-      setMessage('Lesson updated!');
+      setLoading(false);
+      setContentChanged(false);
+      if (error) {
+        setMessage('Error updating lesson');
+      } else {
+        setMessage('Lesson updated!');
+      }
     }
   }
 
