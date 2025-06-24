@@ -1,6 +1,7 @@
 import { notFound } from 'next/navigation';
 import { checkAccountAccess } from '@/app/utils/checkAccountAccess';
 import { createClient } from '@/utils/supabase/server';
+import LessonForm from '@/app/components/lesson-form';
 
 export default async function LessonPage({ params }) {
   const accountId = (await params).accountId;
@@ -26,6 +27,13 @@ export default async function LessonPage({ params }) {
     <>
       <div>{lessonId}</div>
       <div>{lesson.name}</div>
+      <LessonForm
+        accountId={accountId}
+        lessonId={lesson.id}
+        lessonName={lesson.name}
+        lessonPrice={lesson.price}
+        newLesson={false}
+      />
     </>
   );
 }
