@@ -24,6 +24,15 @@ export default async function Lessons({ params }) {
   return (
     <>
       <div>
+        <div className="mb-4">
+          <Link
+            href={`/dashboard/site/${accountId}/lessons/new`}
+            className="bg-gray-700 text-white px-6 py-2 rounded-md cursor-pointer"
+          >
+            Add
+          </Link>
+        </div>
+
         <div className="grid grid-cols-2 gap-4 mb-4">
           <div>Name</div>
           <div>Price</div>
@@ -31,10 +40,13 @@ export default async function Lessons({ params }) {
 
         {lessons.map((lesson) => (
           <div key={lesson.id} className="grid grid-cols-2 gap-4 mb-4">
-            <Link href={`./lessons/${lesson.id}`} className="pr-2">
+            <Link
+              href={`./lessons/${lesson.id}`}
+              className="pr-2 text-blue-700"
+            >
               {lesson.name}
             </Link>
-            <div>{lesson.price ? `$${lesson.price}` : 'Free'}</div>
+            <div>{lesson.price ? `£${lesson.price}` : 'Free'}</div>
           </div>
         ))}
       </div>

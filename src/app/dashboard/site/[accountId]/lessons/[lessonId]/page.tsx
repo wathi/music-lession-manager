@@ -25,8 +25,6 @@ export default async function LessonPage({ params }) {
 
   return (
     <>
-      <div>{lessonId}</div>
-      <div>{lesson.name}</div>
       <LessonForm
         accountId={accountId}
         lessonId={lesson.id}
