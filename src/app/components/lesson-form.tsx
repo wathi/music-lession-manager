@@ -33,7 +33,9 @@ export default function LessonForm({
       } else {
         setMessage('Lesson add!');
       }
-    } else {
+    }
+
+    if (!newLesson) {
       const { error } = await supabase
         .from('lessons')
         .update({ name: name, price: price })
