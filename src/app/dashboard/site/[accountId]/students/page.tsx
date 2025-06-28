@@ -1,6 +1,7 @@
 import { notFound } from 'next/navigation';
 import { createClient } from '@/utils/supabase/server';
 import { checkAccountAccess } from '@/app/utils/checkAccountAccess';
+import type { PostgrestError } from '@supabase/supabase-js';
 import Link from 'next/link';
 
 export default async function Students({ params }) {
@@ -25,14 +26,16 @@ export default async function Students({ params }) {
     .from('account_users')
     .select('user_id, profiles (id, first_name, last_name)')
     .eq('account_id', accountId)
-    .eq('role', 'student')) as { data: StudentProfile[]; error: any };
+    .eq('role', 'student')) as {
+    data: StudentProfile[];
+    error: PostgrestError;
+  };
 
   if (!students || students.length === 0) {
     return <div>No students added yet</div>;
   }
 
   if (studentError) {
-    console.error('Error fetching students:', studentError);
     return <div>Error</div>;
   }
 

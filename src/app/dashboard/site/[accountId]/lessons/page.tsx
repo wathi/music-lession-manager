@@ -22,7 +22,6 @@ export default async function Lessons({ params }) {
   }
 
   if (lessonsError) {
-    console.error('Error fetching students:', lessonsError);
     return <div>Error</div>;
   }
 
