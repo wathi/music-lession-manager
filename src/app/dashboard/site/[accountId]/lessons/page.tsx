@@ -17,10 +17,6 @@ export default async function Lessons({ params }) {
     .select('*')
     .eq('account_id', accountId);
 
-  if (!lessons || lessons.length === 0) {
-    return <div>No lessons added yet</div>;
-  }
-
   if (lessonsError) {
     return <div>Error</div>;
   }
@@ -38,22 +34,28 @@ export default async function Lessons({ params }) {
           </Link>
         </div>
 
-        <div className="grid grid-cols-2 gap-4 mb-4">
-          <div>Name</div>
-          <div>Price</div>
-        </div>
+        {!lessons || lessons.length === 0 ? (
+          <div>No lessons added yet</div>
+        ) : (
+          <>
+            <div className="grid grid-cols-2 gap-4 mb-4 font-semibold">
+              <div>Name</div>
+              <div>Price</div>
+            </div>
 
-        {lessons.map((lesson) => (
-          <div key={lesson.id} className="grid grid-cols-2 gap-4 mb-4">
-            <Link
-              href={`./lessons/${lesson.id}`}
-              className="pr-2 text-blue-700"
-            >
-              {lesson.name}
-            </Link>
-            <div>{lesson.price ? `£${lesson.price}` : 'Free'}</div>
-          </div>
-        ))}
+            {lessons.map((lesson) => (
+              <div key={lesson.id} className="grid grid-cols-2 gap-4 mb-4">
+                <Link
+                  href={`./lessons/${lesson.id}`}
+                  className="pr-2 text-blue-700"
+                >
+                  {lesson.name}
+                </Link>
+                <div>{lesson.price ? `£${lesson.price}` : 'Free'}</div>
+              </div>
+            ))}
+          </>
+        )}
       </div>
     </>
   );
