@@ -39,8 +39,6 @@ export default async function Students({ params }) {
     return <div>Error</div>;
   }
 
-  console.log('Students:', students);
-
   return (
     <>
       <h1 className="mb-4 text-2xl border-b">Students</h1>
