@@ -1,7 +1,6 @@
 import { notFound } from 'next/navigation';
 import { checkAccountAccess } from '@/app/utils/checkAccountAccess';
 import { createClient } from '@/utils/supabase/server';
-import LessonForm from '@/app/components/lesson-form';
 
 export default async function StudentPage({ params }) {
   const accountId = (await params).accountId;
