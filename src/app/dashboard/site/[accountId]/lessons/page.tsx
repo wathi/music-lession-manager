@@ -17,12 +17,17 @@ export default async function Lessons({ params }) {
     .select('*')
     .eq('account_id', accountId);
 
-  if (lessonsError || !lessons) {
+  if (!lessons || lessons.length === 0) {
     return <div>No lessons added yet</div>;
+  }
+
+  if (lessonsError) {
+    return <div>Error</div>;
   }
 
   return (
     <>
+      <h1 className="mb-4 text-2xl border-b">Lessons</h1>
       <div>
         <div className="mb-4">
           <Link
