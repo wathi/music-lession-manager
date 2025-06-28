@@ -16,6 +16,7 @@ export async function checkAccountAccess(accountId: string) {
     .select('account_id')
     .eq('user_id', user.id)
     .eq('account_id', accountId)
+    .in('role', ['owner', 'user'])
     .single();
 
   if (userAccountError || !userAccount) {

@@ -14,42 +14,42 @@ export default async function DashboardPage() {
     redirect('/login');
   }
 
-  type Account = {
-    id: string;
-    name: string;
-    subdomain: string;
-  };
-
   type AccountUser = {
-    accounts: Account | null;
+    accounts: {
+      id: string;
+      name: string;
+      subdomain: string;
+    } | null;
   };
 
   const { data: accounts } = (await supabase
     .from('account_users')
     .select('accounts ( id, name, subdomain )')
-    .eq('user_id', user.id)) as { data: AccountUser[] };
+    .eq('user_id', user.id)
+    .in('role', ['owner', 'user'])) as { data: AccountUser[] };
+
+  console.log('Accounts data:', accounts);
 
   return (
     <>
       <div>Organisations</div>
       <div className="flex gap-4 py-6">
-        {accounts?.map(
-          ({ accounts }) =>
-            accounts && (
-              <Link
-                href={`dashboard/site/${accounts.id}`}
-                key={accounts.id}
-                className="flex items-center justify-between border p-6 rounded-md w-96 hover:bg-gray-100 cursor-pointer"
-              >
-                <div>
-                  <div className="text-xl text-gray-700">{accounts.name}</div>
-                  <div className="text-sm text-gray-500">
-                    {accounts.subdomain}
-                  </div>
-                </div>
-              </Link>
-            )
-        )}
+        {accounts?.map((account) => (
+          <Link
+            href={`dashboard/site/${account.accounts.id}`}
+            key={account.accounts.id}
+            className="flex items-center justify-between border p-6 rounded-md w-96 hover:bg-gray-100 cursor-pointer"
+          >
+            <div>
+              <div className="text-xl text-gray-700">
+                {account.accounts.name}
+              </div>
+              <div className="text-sm text-gray-500">
+                {account.accounts.subdomain}
+              </div>
+            </div>
+          </Link>
+        ))}
       </div>
     </>
   );

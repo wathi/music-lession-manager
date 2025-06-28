@@ -18,7 +18,7 @@ export default function EditProfileForm({ user, profile }) {
     const { error } = await supabase
       .from('profiles')
       .update({ first_name: firstName, last_name: lastName })
-      .eq('user_id', user.id);
+      .eq('id', user.id);
 
     setLoading(false);
     setContentChanged(false);
