@@ -1,5 +1,6 @@
 import { createClient } from '@/utils/supabase/server';
 import { PostgrestError } from '@supabase/supabase-js';
+import LessonsList from './LessonList';
 
 export default async function SubdomainPage({ params }) {
   const subdomain = (await params).subdomain;
@@ -37,16 +38,9 @@ export default async function SubdomainPage({ params }) {
 
   return (
     <>
-      <div className="flex justify-between items-center mb-4">
-        {lessons.map((lesson) => (
-          <div
-            key={lesson.id}
-            className="bg-gray-300 m-4 p-4 rounded-md shadow-md"
-          >
-            <div>{lesson.name}</div>
-            <div>{lesson.price}</div>
-          </div>
-        ))}
+      <div className="mx-80 p-6">
+        <h1 className="text-2xl font-bold mb-4">Lessons for {subdomain}</h1>
+        <LessonsList lessons={lessons} />
       </div>
     </>
   );
