@@ -8,13 +8,7 @@ type Lesson = {
   price: number;
 };
 
-export default function LessonsList({
-  lessons,
-  subdomain,
-}: {
-  lessons: Lesson[];
-  subdomain: subdomain;
-}) {
+export default function LessonsList({ lessons }: { lessons: Lesson[] }) {
   const { cart, addToCart, removeFromCart, clearCart, getTotal } = useCart();
 
   return (
