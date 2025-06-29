@@ -40,7 +40,7 @@ export default async function SubdomainPage({ params }) {
     <>
       <div className="mx-80 p-6">
         <h1 className="text-2xl font-bold mb-4">Lessons for {subdomain}</h1>
-        <LessonsList lessons={lessons} subdomain={subdomain} />
+        <LessonsList lessons={lessons} />
       </div>
     </>
   );
