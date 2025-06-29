@@ -1,6 +1,7 @@
 'use client';
 
 import { useCart } from '@/app/hook/useCart';
+import { useRouter } from 'next/navigation';
 
 type Lesson = {
   id: string;
@@ -10,6 +11,18 @@ type Lesson = {
 
 export default function LessonsList({ lessons }: { lessons: Lesson[] }) {
   const { cart, addToCart, removeFromCart, clearCart, getTotal } = useCart();
+  const router = useRouter();
+
+  const handleCheckout = async () => {
+    const res = await fetch('/api/create-checkout-session/', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ cart }),
+    });
+
+    const { url } = await res.json();
+    router.push(url); // Redirect to Stripe
+  };
 
   return (
     <>
@@ -58,6 +71,13 @@ export default function LessonsList({ lessons }: { lessons: Lesson[] }) {
             className="mt-4 bg-red-600 text-white px-4 py-2 rounded"
           >
             Clear Cart
+          </button>
+          <button
+            onClick={handleCheckout}
+            disabled={cart.length === 0}
+            className="bg-blue-600 text-white p-3 rounded"
+          >
+            Checkout
           </button>
         </div>
       )}
