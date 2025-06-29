@@ -8,10 +8,6 @@ type Lesson = {
   price: number;
 };
 
-type subdomain = {
-  subdomain: string;
-};
-
 export default function LessonsList({
   lessons,
   subdomain,
