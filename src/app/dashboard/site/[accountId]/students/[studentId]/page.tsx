@@ -1,6 +1,7 @@
 import { notFound } from 'next/navigation';
 import { checkAccountAccess } from '@/app/utils/checkAccountAccess';
 import { createClient } from '@/utils/supabase/server';
+import StudentForm from '@/app/components/student-form';
 
 export default async function StudentPage({ params }) {
   const accountId = (await params).accountId;
@@ -13,7 +14,7 @@ export default async function StudentPage({ params }) {
   const supabase = await createClient();
 
   const { data: student, error: studentError } = await supabase
-    .from('profiles')
+    .from('students')
     .select(`*`)
     .eq('id', studentId)
     .single();
@@ -24,7 +25,14 @@ export default async function StudentPage({ params }) {
 
   return (
     <>
-      <div>{student.first_name}</div>
+      <StudentForm
+        accountId={accountId}
+        studentId={student.id}
+        studentName={student.name || ''}
+        studentEmail={student.email || ''}
+        studentPhone={student.phone || ''}
+        newStudent={false}
+      />
     </>
   );
 }
