@@ -27,11 +27,11 @@ export default async function StudentPage({ params }) {
     <>
       <StudentForm
         accountId={accountId}
-        studentId=""
-        studentName=""
-        studentEmail=""
-        studentPhone=""
-        newStudent={true}
+        studentId={student.id}
+        studentName={student.name || ''}
+        studentEmail={student.email || ''}
+        studentPhone={student.phone || ''}
+        newStudent={false}
       />
     </>
   );

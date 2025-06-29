@@ -58,7 +58,7 @@ export default async function Students({ params }) {
             {students.map((student) => (
               <div key={student.id} className="grid grid-cols-4 gap-4 mb-4">
                 <Link
-                  href={`./studsent/${student.id}`}
+                  href={`./students/${student.id}`}
                   className="pr-2 text-blue-700"
                 >
                   {student.name}
