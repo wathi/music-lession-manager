@@ -38,13 +38,13 @@ export default async function Lessons({ params }) {
           <div>No lessons added yet</div>
         ) : (
           <>
-            <div className="grid grid-cols-2 gap-4 mb-4 font-semibold">
+            <div className="grid grid-cols-3 gap-4 mb-4 font-semibold">
               <div>Name</div>
               <div>Price</div>
             </div>
 
             {lessons.map((lesson) => (
-              <div key={lesson.id} className="grid grid-cols-2 gap-4 mb-4">
+              <div key={lesson.id} className="grid grid-cols-3 gap-4 mb-4">
                 <Link
                   href={`./lessons/${lesson.id}`}
                   className="pr-2 text-blue-700"
@@ -52,6 +52,7 @@ export default async function Lessons({ params }) {
                   {lesson.name}
                 </Link>
                 <div>{lesson.price ? `£${lesson.price}` : 'Free'}</div>
+                <div>Archive</div>
               </div>
             ))}
           </>

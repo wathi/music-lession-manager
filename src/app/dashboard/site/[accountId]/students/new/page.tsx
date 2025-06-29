@@ -1,30 +1,18 @@
 import { notFound } from 'next/navigation';
 import { checkAccountAccess } from '@/app/utils/checkAccountAccess';
-import { createClient } from '@/utils/supabase/server';
 import StudentForm from '@/app/components/student-form';
 
-export default async function StudentPage({ params }) {
+export default async function NewStudentPage({ params }) {
   const accountId = (await params).accountId;
-  const studentId = (await params).studentId;
+  console.log(params);
   const checkAccessResult = await checkAccountAccess(accountId);
   if (!checkAccessResult) {
     notFound();
   }
 
-  const supabase = await createClient();
-
-  const { data: student, error: studentError } = await supabase
-    .from('students')
-    .select(`*`)
-    .eq('id', studentId)
-    .single();
-
-  if (studentError || !student) {
-    return <div>Not found</div>;
-  }
-
   return (
     <>
+      <div>Add new student</div>
       <StudentForm
         accountId={accountId}
         studentId=""

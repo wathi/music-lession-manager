@@ -14,26 +14,19 @@ export default async function Students({ params }) {
   const supabase = await createClient();
 
   type StudentProfile = {
-    user_id: string;
-    profiles: {
-      id: string;
-      first_name: string;
-      last_name: string;
-    } | null;
-  };
+    id?: string;
+    name?: string;
+    email?: string;
+    phone?: string;
+  } | null;
 
   const { data: students, error: studentError } = (await supabase
-    .from('account_users')
-    .select('user_id, profiles (id, first_name, last_name)')
-    .eq('account_id', accountId)
-    .eq('role', 'student')) as {
+    .from('students')
+    .select('id, name, email, phone')
+    .eq('account_id', accountId)) as {
     data: StudentProfile[];
     error: PostgrestError;
   };
-
-  if (!students || students.length === 0) {
-    return <div>No students added yet</div>;
-  }
 
   if (studentError) {
     return <div>Error</div>;
@@ -45,35 +38,38 @@ export default async function Students({ params }) {
       <div>
         <div className="mb-4">
           <Link
-            href={``}
+            href={`/dashboard/site/${accountId}/students/new`}
             className="bg-gray-700 text-white px-6 py-2 rounded-md cursor-pointer"
           >
-            Invite Student
+            Add
           </Link>
         </div>
 
-        <div className="grid grid-cols-3 gap-4 mb-4">
-          <div>First name</div>
-          <div>Last name</div>
-        </div>
-
-        {students.map((student) => (
-          <div
-            key={student.profiles.id}
-            className="grid grid-cols-3 gap-4 mb-4"
-          >
-            <div>{student.profiles.first_name}</div>
-            <div>{student.profiles.last_name}</div>
-            <div>
-              <Link
-                href={`./students/${student.user_id}`}
-                className="px-4 py-2 rounded-md bg-gray-700 text-white"
-              >
-                View Profile
-              </Link>
+        {!students || students.length === 0 ? (
+          <div>No students added yet</div>
+        ) : (
+          <>
+            <div className="grid grid-cols-4 gap-4 mb-4 font-semibold">
+              <div>Name</div>
+              <div>Email</div>
+              <div>Phone</div>
             </div>
-          </div>
-        ))}
+
+            {students.map((student) => (
+              <div key={student.id} className="grid grid-cols-4 gap-4 mb-4">
+                <Link
+                  href={`./studsent/${student.id}`}
+                  className="pr-2 text-blue-700"
+                >
+                  {student.name}
+                </Link>
+                <div>{student.email}</div>
+                <div>{student.phone}</div>
+                <div>Archive</div>
+              </div>
+            ))}
+          </>
+        )}
       </div>
     </>
   );
