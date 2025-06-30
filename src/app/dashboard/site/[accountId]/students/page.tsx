@@ -23,7 +23,8 @@ export default async function Students({ params }) {
   const { data: students, error: studentError } = (await supabase
     .from('students')
     .select('id, name, email, phone')
-    .eq('account_id', accountId)) as {
+    .eq('account_id', accountId)
+    .is('archived_at', null)) as {
     data: StudentProfile[];
     error: PostgrestError;
   };
