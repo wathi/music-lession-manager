@@ -2,6 +2,7 @@ import { notFound } from 'next/navigation';
 import { createClient } from '@/utils/supabase/server';
 import { checkAccountAccess } from '@/app/utils/checkAccountAccess';
 import Link from 'next/link';
+import MessageModal from '@/app/components/message-modal';
 
 export default async function Lessons({ params }) {
   const accountId = (await params).accountId;
