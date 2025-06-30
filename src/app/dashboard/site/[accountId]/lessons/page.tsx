@@ -15,7 +15,8 @@ export default async function Lessons({ params }) {
   const { data: lessons, error: lessonsError } = await supabase
     .from('lessons')
     .select('*')
-    .eq('account_id', accountId);
+    .eq('account_id', accountId)
+    .is('archived_at', null);
 
   if (lessonsError) {
     return <div>Error</div>;
