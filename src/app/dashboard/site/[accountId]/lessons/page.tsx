@@ -2,6 +2,7 @@ import { notFound } from 'next/navigation';
 import { createClient } from '@/utils/supabase/server';
 import { checkAccountAccess } from '@/app/utils/checkAccountAccess';
 import Link from 'next/link';
+import LessonItem from './lesson-item';
 
 export default async function Lessons({ params }) {
   const accountId = (await params).accountId;
@@ -39,22 +40,17 @@ export default async function Lessons({ params }) {
           <div>No lessons added yet</div>
         ) : (
           <>
-            <div className="grid grid-cols-3 gap-4 mb-4 font-semibold">
+            <div className="grid grid-cols-3 gap-4 mb-4 font-semibold p-2">
               <div>Name</div>
               <div>Price</div>
             </div>
 
             {lessons.map((lesson) => (
-              <div key={lesson.id} className="grid grid-cols-3 gap-4 mb-4">
-                <Link
-                  href={`./lessons/${lesson.id}`}
-                  className="pr-2 text-blue-700"
-                >
-                  {lesson.name}
-                </Link>
-                <div>{lesson.price ? `£${lesson.price}` : 'Free'}</div>
-                <div>Archive</div>
-              </div>
+              <LessonItem
+                key={lesson.id}
+                lesson={lesson}
+                accountId={accountId}
+              />
             ))}
           </>
         )}
