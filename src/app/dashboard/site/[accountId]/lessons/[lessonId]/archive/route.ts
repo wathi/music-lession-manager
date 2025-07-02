@@ -3,15 +3,16 @@ import { NextRequest, NextResponse } from 'next/server';
 
 export async function POST(
   req: NextRequest,
-  { params }: { params: { accountId: string; lessonId: string } }
+  context: { params: { accountId: string; lessonId: string } }
 ) {
+  const { accountId, lessonId } = context.params;
   const supabase = await createClient();
 
   const { error } = await supabase
     .from('lessons')
     .update({ archived_at: new Date().toISOString() })
-    .eq('id', params.lessonId)
-    .eq('account_id', params.accountId);
+    .eq('id', lessonId)
+    .eq('account_id', accountId);
 
   if (error) {
     console.error(error);
