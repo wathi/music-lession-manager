@@ -4,7 +4,6 @@ import LessonForm from '@/app/components/lesson-form';
 
 export default async function NewLessonPage({ params }) {
   const accountId = (await params).accountId;
-  console.log(params);
   const checkAccessResult = await checkAccountAccess(accountId);
   if (!checkAccessResult) {
     notFound();

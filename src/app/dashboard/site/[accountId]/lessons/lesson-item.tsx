@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import ArchiveModal from '@/app/components/archive-modal';
+import { createClient } from '@/utils/supabase/client';
 
 export default function LessonItem({ lesson, accountId }) {
   const [openArchiveModal, setOpenArchiveModal] = useState(false);
@@ -10,18 +11,18 @@ export default function LessonItem({ lesson, accountId }) {
   const [archived, setArchived] = useState(false);
 
   const handleArchive = async () => {
-    const res = await fetch(
-      `/dashboard/site/${accountId}/lessons/${lesson.id}/archive`,
-      {
-        method: 'POST',
-      }
-    );
+    const supabase = createClient();
+    const { error } = await supabase
+      .from('lessons')
+      .update({ archived_at: new Date().toISOString() })
+      .eq('id', lesson.id)
+      .eq('account_id', accountId);
 
-    if (res.ok) {
+    if (!error) {
       setArchived(true);
       setOpenArchiveModal(false);
     } else {
-      alert('Failed to archive');
+      console.log(error);
     }
   };
 
