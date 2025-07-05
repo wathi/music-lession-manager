@@ -1,8 +1,8 @@
 import { notFound } from 'next/navigation';
-import { createClient } from '@/utils/supabase/server';
 import { checkAccountAccess } from '@/app/utils/checkAccountAccess';
-import type { PostgrestError } from '@supabase/supabase-js';
 import Link from 'next/link';
+import { StudentProfile } from '@/app/types/students';
+import { getActiveStudents } from '@/app/utils/students';
 
 export default async function Students({ params }) {
   const accountId = (await params).accountId;
@@ -11,26 +11,12 @@ export default async function Students({ params }) {
     notFound();
   }
 
-  const supabase = await createClient();
+  let students: StudentProfile[] = [];
 
-  type StudentProfile = {
-    id?: string;
-    name?: string;
-    email?: string;
-    phone?: string;
-  } | null;
-
-  const { data: students, error: studentError } = (await supabase
-    .from('students')
-    .select('id, name, email, phone')
-    .eq('account_id', accountId)
-    .is('archived_at', null)) as {
-    data: StudentProfile[];
-    error: PostgrestError;
-  };
-
-  if (studentError) {
-    return <div>Error</div>;
+  try {
+    students = await getActiveStudents(accountId);
+  } catch (error) {
+    return <div>Error loading students</div>;
   }
 
   return (

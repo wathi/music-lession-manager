@@ -1,8 +1,8 @@
 import { notFound } from 'next/navigation';
 import { checkAccountAccess } from '@/app/utils/checkAccountAccess';
-import StudentForm from '@/app/components/student-form';
+import ScheduleForm from '@/app/components/schedule-form';
 
-export default async function NewStudentPage({ params }) {
+export default async function NewSchedulePage({ params }) {
   const accountId = (await params).accountId;
   const checkAccessResult = await checkAccountAccess(accountId);
   if (!checkAccessResult) {
@@ -11,14 +11,14 @@ export default async function NewStudentPage({ params }) {
 
   return (
     <>
-      <div>Add new student</div>
-      <StudentForm
+      <div>Add new schedule</div>
+      <ScheduleForm
         accountId={accountId}
-        studentId=""
-        studentName=""
-        studentEmail=""
-        studentPhone=""
-        newStudent={true}
+        lessonId=""
+        student=""
+        lessonName=""
+        lessonPrice=""
+        newLesson={true}
       />
     </>
   );
