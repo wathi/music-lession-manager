@@ -1,0 +1,39 @@
+import { notFound } from 'next/navigation';
+import { checkAccountAccess } from '@/app/utils/checkAccountAccess';
+import { createClient } from '@/utils/supabase/server';
+import ScheduleForm from '@/app/components/schedule-form';
+
+export default async function SchedulePage({ params }) {
+  const accountId = (await params).accountId;
+  const scheduleId = (await params).scheduleId;
+  const checkAccessResult = await checkAccountAccess(accountId);
+  if (!checkAccessResult) {
+    notFound();
+  }
+
+  const supabase = await createClient();
+
+  const { data, error } = await supabase
+    .from('schedule')
+    .select(`*`)
+    .eq('id', scheduleId)
+    .single();
+
+  if (error || !data) {
+    return <div>Not found</div>;
+  }
+
+  return (
+    <>
+      <ScheduleForm
+        accountId={accountId}
+        scheduleId={data.id}
+        lessonId={data.lesson_id}
+        studentId={data.student_id}
+        startTime={data.start_time}
+        endTime={data.end_time}
+        newSchedule={false}
+      />
+    </>
+  );
+}

@@ -4,6 +4,7 @@ import ScheduleForm from '@/app/components/schedule-form';
 
 export default async function NewSchedulePage({ params }) {
   const accountId = (await params).accountId;
+
   const checkAccessResult = await checkAccountAccess(accountId);
   if (!checkAccessResult) {
     notFound();
@@ -14,11 +15,12 @@ export default async function NewSchedulePage({ params }) {
       <div>Add new schedule</div>
       <ScheduleForm
         accountId={accountId}
+        scheduleId=""
         lessonId=""
-        student=""
-        lessonName=""
-        lessonPrice=""
-        newLesson={true}
+        studentId=""
+        startTime=""
+        endTime=""
+        newSchedule={false}
       />
     </>
   );
