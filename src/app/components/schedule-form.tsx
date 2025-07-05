@@ -1,8 +1,8 @@
 'use client';
 import { useEffect, useState } from 'react';
 import { createClient } from '@/utils/supabase/client';
-import { getActiveStudents } from '@/app/utils/students';
-import { getActiveLessons } from '../utils/lessons';
+// import { getActiveStudents } from '@/app/utils/students';
+// import { getActiveLessons } from '@/app/utils/lessons';
 
 export default function ScheduleForm({
   accountId,
@@ -23,26 +23,26 @@ export default function ScheduleForm({
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState('');
 
-  useEffect(() => {
-    async function fetchStudents() {
-      try {
-        const data = await getActiveStudents(accountId);
-        setStudents(data);
-      } catch (error) {
-        console.log(error);
-      }
-    }
-    async function fetchLessons() {
-      try {
-        const data = await getActiveLessons(accountId);
-        setLessons(data);
-      } catch (error) {
-        console.log(error);
-      }
-    }
-    fetchStudents();
-    fetchLessons();
-  }, [accountId]);
+  // useEffect(() => {
+  //   async function fetchStudents() {
+  //     try {
+  //       const data = await getActiveStudents(accountId);
+  //       setStudents(data);
+  //     } catch (error) {
+  //       console.log(error);
+  //     }
+  //   }
+  //   async function fetchLessons() {
+  //     try {
+  //       const data = await getActiveLessons(accountId);
+  //       setLessons(data);
+  //     } catch (error) {
+  //       console.log(error);
+  //     }
+  //   }
+  //   fetchStudents();
+  //   fetchLessons();
+  // }, [accountId]);
 
   async function handleSubmit(e) {
     e.preventDefault();
