@@ -3,6 +3,8 @@ import { createClient } from '@/utils/supabase/server';
 import { checkAccountAccess } from '@/app/utils/checkAccountAccess';
 import type { PostgrestError } from '@supabase/supabase-js';
 import Link from 'next/link';
+import { getActiveStudents } from '@/app/utils/students';
+import { getActiveLessons } from '@/app/utils/lessons';
 
 export default async function Schedule({ params }) {
   const accountId = (await params).accountId;
@@ -58,24 +60,24 @@ export default async function Schedule({ params }) {
         ) : (
           <>
             <div className="grid grid-cols-4 gap-4 mb-4 font-semibold">
-              <div>Student</div>
-              <div>Lesson</div>
               <div>Start</div>
               <div>End</div>
+              <div>Student</div>
+              <div>Lesson</div>
             </div>
 
             {schedule.map((item) => (
               <div key={item.id} className="grid grid-cols-4 gap-4 mb-4">
                 <Link
                   href={`./schedule/${item.id}`}
-                  className="pr-2 text-blue-700"
+                  className="pr-2 text-blue-700 "
                 >
-                  {item.id}
+                  <div>{item.start_time}</div>
                 </Link>
+                <div>{item.end_time}</div>
                 <div>{item.students.name}</div>
                 <div>{item.lessons.name}</div>
-                <div>{item.start_time}</div>
-                <div>{item.end_time}</div>
+
                 <div>Archive</div>
               </div>
             ))}

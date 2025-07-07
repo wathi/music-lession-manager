@@ -1,8 +1,6 @@
 'use client';
 import { useEffect, useState } from 'react';
 import { createClient } from '@/utils/supabase/client';
-// import { getActiveStudents } from '@/app/utils/students';
-// import { getActiveLessons } from '@/app/utils/lessons';
 
 export default function ScheduleForm({
   accountId,
@@ -12,39 +10,19 @@ export default function ScheduleForm({
   startTime,
   endTime,
   newSchedule,
+  students,
+  lessons,
 }) {
   const [startTimeState, setStartTimeState] = useState(startTime || '');
   const [endTimeState, setEndTimeState] = useState(endTime || '');
-  const [students, setStudents] = useState([]);
   const [selectedStudent, setSelectedStudent] = useState(studentId);
-  const [lessons, setLessons] = useState([]);
   const [selectedLesson, setSelectedLesson] = useState(lessonId);
   const [contentChanged, setContentChanged] = useState(false);
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState('');
 
-  // useEffect(() => {
-  //   async function fetchStudents() {
-  //     try {
-  //       const data = await getActiveStudents(accountId);
-  //       setStudents(data);
-  //     } catch (error) {
-  //       console.log(error);
-  //     }
-  //   }
-  //   async function fetchLessons() {
-  //     try {
-  //       const data = await getActiveLessons(accountId);
-  //       setLessons(data);
-  //     } catch (error) {
-  //       console.log(error);
-  //     }
-  //   }
-  //   fetchStudents();
-  //   fetchLessons();
-  // }, [accountId]);
-
   async function handleSubmit(e) {
+    console.log(`lesson_id`, selectedLesson);
     e.preventDefault();
     setLoading(true);
     setMessage('');
@@ -53,8 +31,8 @@ export default function ScheduleForm({
 
     if (newSchedule) {
       const { error } = await supabase.from('schedule').insert({
-        lesson_id: selectedLesson.id,
-        student_id: selectedStudent.id,
+        lesson_id: selectedLesson,
+        student_id: selectedStudent,
         start_time: startTimeState,
         end_time: endTimeState,
         account_id: accountId,
@@ -62,9 +40,10 @@ export default function ScheduleForm({
       setLoading(false);
       setContentChanged(false);
       if (error) {
-        setMessage('Error add student');
+        setMessage('Error add schedule');
+        console.log(error);
       } else {
-        setMessage('Student add!');
+        setMessage('Student schedule!');
       }
     }
 
@@ -72,8 +51,8 @@ export default function ScheduleForm({
       const { error } = await supabase
         .from('schedule')
         .update({
-          lesson_i: selectedLesson.id,
-          student_id: selectedStudent.id,
+          lesson_id: selectedLesson,
+          student_id: selectedStudent,
           start_time: startTimeState,
           end_time: endTimeState,
         })
@@ -82,6 +61,7 @@ export default function ScheduleForm({
       setContentChanged(false);
       if (error) {
         setMessage('Error updating schedule');
+        console.log(error);
       } else {
         setMessage('updated schedule!');
       }
@@ -93,8 +73,9 @@ export default function ScheduleForm({
       <form onSubmit={handleSubmit} className="mb-6">
         <div className="font-bold">Start time</div>
         <input
+          type="datetime-local"
           className="py-2 mb-2 border border-gray-300 rounded px-2"
-          value={startTime}
+          value={startTimeState}
           onChange={(e) => {
             setStartTimeState(e.target.value);
             setContentChanged(true);
@@ -102,41 +83,43 @@ export default function ScheduleForm({
         />
         <div className="font-bold">End Time</div>
         <input
+          type="datetime-local"
           className="py-2 mb-2 border border-gray-300 rounded px-2"
-          value={endTime}
+          value={endTimeState}
           onChange={(e) => {
             setEndTimeState(e.target.value);
             setContentChanged(true);
           }}
         />
-        <label>
-          Student:
-          <select
-            value={selectedStudent}
-            onChange={(e) => setSelectedStudent(e.target.value)}
-          >
-            <option value="">Select a student</option>
-            {students.map((student) => (
-              <option key={student.id} value={student.id}>
-                {student.name}
-              </option>
-            ))}
-          </select>
-        </label>
-        <label>
-          Student:
-          <select
-            value={selectedLesson}
-            onChange={(e) => setSelectedLesson(e.target.value)}
-          >
-            <option value="">Select a lesson</option>
-            {lessons.map((lesson) => (
-              <option key={lesson.id} value={lesson.id}>
-                {lesson.name}
-              </option>
-            ))}
-          </select>
-        </label>
+
+        <div className="font-bold">Student</div>
+        <select
+          className="py-2 mb-2 border border-gray-300 rounded px-2"
+          value={selectedStudent}
+          onChange={(e) => setSelectedStudent(e.target.value)}
+        >
+          <option value="">Select a student</option>
+          {students.map((student) => (
+            <option key={student.id} value={student.id}>
+              {student.name}
+            </option>
+          ))}
+        </select>
+
+        <div className="font-bold">Lesson</div>
+        <select
+          className="py-2 mb-2 border border-gray-300 rounded px-2"
+          value={selectedLesson}
+          onChange={(e) => setSelectedLesson(e.target.value)}
+        >
+          <option value="">Select a lesson</option>
+          {lessons.map((lesson) => (
+            <option key={lesson.id} value={lesson.id}>
+              {lesson.name}
+            </option>
+          ))}
+        </select>
+
         <div className="font-bold">Account id</div>
         <div className="py-2 mb-2">{accountId}</div>
         <button
