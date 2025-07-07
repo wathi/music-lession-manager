@@ -17,7 +17,8 @@ export default async function Lessons({ params }) {
   try {
     lessons = await getActiveLessons(accountId);
   } catch (error) {
-    return <div>Error loading lessons</div>;
+    const message = error instanceof Error ? error.message : 'Unknown error';
+    return <div>Error: {message}</div>;
   }
 
   return (

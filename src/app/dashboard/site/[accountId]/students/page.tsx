@@ -16,7 +16,8 @@ export default async function Students({ params }) {
   try {
     students = await getActiveStudents(accountId);
   } catch (error) {
-    return <div>Error loading students</div>;
+    const message = error instanceof Error ? error.message : 'Unknown error';
+    return <div>Error: {message}</div>;
   }
 
   return (
