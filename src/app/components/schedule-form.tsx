@@ -21,6 +21,23 @@ export default function ScheduleForm({
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState('');
 
+  useEffect(() => {
+    if (startTime) {
+      setStartTimeState(formatForInput(startTime));
+    }
+    if (endTime) {
+      setEndTimeState(formatForInput(endTime));
+    }
+  }, [startTime, endTime]);
+
+  function formatForInput(isoString) {
+    if (!isoString) return '';
+    const date = new Date(isoString);
+    const offset = date.getTimezoneOffset();
+    const localDate = new Date(date.getTime() - offset * 60 * 1000);
+    return localDate.toISOString().slice(0, 16); // "YYYY-MM-DDTHH:mm"
+  }
+
   async function handleSubmit(e) {
     console.log(`lesson_id`, selectedLesson);
     e.preventDefault();
