@@ -1,8 +1,9 @@
 import { notFound } from 'next/navigation';
-import { createClient } from '@/utils/supabase/server';
 import { checkAccountAccess } from '@/app/utils/checkAccountAccess';
 import Link from 'next/link';
-import LessonItem from './lesson-item';
+import LessonItem from './_lesson-item';
+import { getActiveLessons } from '@/app/utils/lessons';
+import { Lesson } from '@/app/types/lessons';
 
 export default async function Lessons({ params }) {
   const accountId = (await params).accountId;
@@ -11,16 +12,13 @@ export default async function Lessons({ params }) {
     notFound();
   }
 
-  const supabase = await createClient();
+  let lessons: Lesson[] = [];
 
-  const { data: lessons, error: lessonsError } = await supabase
-    .from('lessons')
-    .select('*')
-    .eq('account_id', accountId)
-    .is('archived_at', null);
-
-  if (lessonsError) {
-    return <div>Error</div>;
+  try {
+    lessons = await getActiveLessons(accountId);
+  } catch (error) {
+    const message = error instanceof Error ? error.message : 'Unknown error';
+    return <div>Error: {message}</div>;
   }
 
   return (

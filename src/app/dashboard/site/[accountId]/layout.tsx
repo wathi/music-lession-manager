@@ -33,6 +33,12 @@ export default function SiteLayout({
           Lessons
         </Link>
         <Link
+          href={`/dashboard/site/${accountId}/schedule`}
+          className="block hover:bg-gray-300 p-4 cursor-pointer"
+        >
+          Schedule
+        </Link>
+        <Link
           href={`/dashboard/site/${accountId}/messages`}
           className="block hover:bg-gray-300 p-4 cursor-pointer"
         >
