@@ -58,7 +58,6 @@ export default function ScheduleForm({
       setContentChanged(false);
       if (error) {
         setMessage('Error add schedule');
-        console.log(error);
       } else {
         setMessage('Student schedule!');
       }
@@ -78,7 +77,6 @@ export default function ScheduleForm({
       setContentChanged(false);
       if (error) {
         setMessage('Error updating schedule');
-        console.log(error);
       } else {
         setMessage('updated schedule!');
       }
