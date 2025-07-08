@@ -28,11 +28,17 @@ export default async function DashboardPage() {
     .eq('user_id', user.id)
     .in('role', ['owner', 'user'])) as { data: AccountUser[] };
 
-  console.log('Accounts data:', accounts);
-
   return (
     <>
-      <div>Organisations</div>
+      <div className="mb-4">Organisations</div>
+      <div className="mb-4">
+        <Link
+          href={`/dashboard/site/new`}
+          className="bg-gray-700 text-white px-6 py-2 rounded-md cursor-pointer"
+        >
+          Add
+        </Link>
+      </div>
       <div className="flex gap-4 py-6">
         {accounts?.map((account) => (
           <Link
