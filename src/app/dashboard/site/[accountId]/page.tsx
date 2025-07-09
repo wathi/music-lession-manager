@@ -26,7 +26,6 @@ export default async function SitePage({ params }) {
     <>
       <div className="p-8">
         <h1 className="text-2xl font-bold mb-4">Overview</h1>
-        <div className="mb-2">Account ID: {account.id}</div>
         <div className="mb-2">Account Name: {account.name}</div>
       </div>
     </>
