@@ -13,11 +13,21 @@ type Profile = {
   email: string | null;
 };
 
-export default function DashboardNavbar() {
+type AccountId = {
+  accountId: string;
+};
+
+type Account = {
+  id: string;
+  name: string;
+};
+
+export default function DashboardNavbar({ accountId }: AccountId) {
   const supabase = createClient();
   const [user, setUser] = useState<User | null>(null);
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [profile, setProfile] = useState<Profile | null>(null);
+  const [account, setAccount] = useState<Account | null>(null);
   const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
@@ -42,14 +52,30 @@ export default function DashboardNavbar() {
       }
     };
 
+    const fetchAccount = async () => {
+      const { data } = await supabase
+        .from('accounts')
+        .select('id,name')
+        .eq('id', accountId)
+        .single();
+
+      if (data) setAccount(data);
+    };
+
     fetchProfile();
-  }, [supabase]);
+    fetchAccount();
+  }, [supabase, accountId]);
 
   return (
     <nav className="fixed top-0 left-0 right-0 h-12 border-b border-b-gray-300 flex items-center justify-between p-4">
-      <Link href="/" className="text-gray-800 text-xl cursor-pointer">
-        NEIRO
-      </Link>
+      <div className="flex items-center">
+        <Link href="/" className="text-gray-800 text-xl cursor-pointer mr-6">
+          NEIRO
+        </Link>
+        <div className="font-semibold text-gray-900">
+          {account ? account.name : ''}
+        </div>
+      </div>
       <div className="flex items-center">
         <div className="p-2 py-1 text-gray-800 hover:bg-gray-300 cursor-pointer">
           <svg

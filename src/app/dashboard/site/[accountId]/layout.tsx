@@ -1,4 +1,5 @@
 'use client';
+import DashboardNavbar from '@/app/components/dashboard-navbar';
 import Link from 'next/link';
 import React from 'react';
 
@@ -13,6 +14,7 @@ export default function SiteLayout({
 
   return (
     <>
+      <DashboardNavbar accountId={accountId} />
       <aside className="fixed top-12 left-0 h-[calc(100%-3rem)] w-56 overflow-y-auto text-gray-800 text-sm mt-4">
         <Link
           href={`/dashboard/site/${accountId}`}
@@ -63,9 +65,9 @@ export default function SiteLayout({
           Settings
         </Link>
       </aside>
-      <main className="absolute top-12 left-56 h-[calc(100%-3rem)] w-[calc(100%-14rem)] p-6 overflow-y-auto">
+      <div className="absolute top-12 left-56 h-[calc(100%-3rem)] w-[calc(100%-14rem)] p-6 overflow-y-auto">
         {children}
-      </main>
+      </div>
     </>
   );
 }

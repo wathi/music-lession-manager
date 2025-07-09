@@ -1,6 +1,7 @@
 import { redirect } from 'next/navigation';
 import { createClient } from '@/utils/supabase/server';
 import Link from 'next/link';
+import DashboardNavbar from '../components/dashboard-navbar';
 
 export default async function DashboardPage() {
   const supabase = await createClient();
@@ -30,32 +31,35 @@ export default async function DashboardPage() {
 
   return (
     <>
-      <div className="mb-4">Organisations</div>
-      <div className="mb-4">
-        <Link
-          href={`/dashboard/site/new`}
-          className="bg-gray-700 text-white px-6 py-2 rounded-md cursor-pointer"
-        >
-          Add
-        </Link>
-      </div>
-      <div className="flex gap-4 py-6">
-        {accounts?.map((account) => (
+      <DashboardNavbar accountId="" />
+      <div className="absolute top-12 h-[calc(100%-3rem)] w-[calc(100%-14rem)] p-6 overflow-y-auto">
+        <div className="mb-4">Organisations</div>
+        <div className="mb-4">
           <Link
-            href={`dashboard/site/${account.accounts.id}`}
-            key={account.accounts.id}
-            className="flex items-center justify-between border p-6 rounded-md w-96 hover:bg-gray-100 cursor-pointer"
+            href={`/dashboard/site/new`}
+            className="bg-gray-700 text-white px-6 py-2 rounded-md cursor-pointer"
           >
-            <div>
-              <div className="text-xl text-gray-700">
-                {account.accounts.name}
-              </div>
-              <div className="text-sm text-gray-500">
-                {account.accounts.subdomain}
-              </div>
-            </div>
+            Add
           </Link>
-        ))}
+        </div>
+        <div className="flex gap-4 py-6">
+          {accounts?.map((account) => (
+            <Link
+              href={`dashboard/site/${account.accounts.id}`}
+              key={account.accounts.id}
+              className="flex items-center justify-between border p-6 rounded-md w-96 hover:bg-gray-100 cursor-pointer"
+            >
+              <div>
+                <div className="text-xl text-gray-700">
+                  {account.accounts.name}
+                </div>
+                <div className="text-sm text-gray-500">
+                  {account.accounts.subdomain}
+                </div>
+              </div>
+            </Link>
+          ))}
+        </div>
       </div>
     </>
   );

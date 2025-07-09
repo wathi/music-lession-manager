@@ -71,17 +71,17 @@ export default function LessonForm({
             setContentChanged(true);
           }}
         />
-        <div className="font-bold">Account id</div>
-        <div className="py-2 mb-2">{accountId}</div>
-        <button
-          type="submit"
-          className={`mt-4 px-4 py-2 bg-gray-700 text-white rounded  ${
-            loading || !contentChanged ? 'opacity-50' : 'hover:cursor-pointer'
-          }`}
-          disabled={loading || !contentChanged}
-        >
-          {loading ? 'Saving...' : 'Save'}
-        </button>
+        <div>
+          <button
+            type="submit"
+            className={`mt-4 px-4 py-2 bg-gray-700 text-white rounded  ${
+              loading || !contentChanged ? 'opacity-50' : 'hover:cursor-pointer'
+            }`}
+            disabled={loading || !contentChanged}
+          >
+            {loading ? 'Saving...' : 'Save'}
+          </button>
+        </div>
         {message && <div className="mt-2">{message}</div>}
       </form>
     </>
